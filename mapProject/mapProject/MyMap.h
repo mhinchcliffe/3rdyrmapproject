@@ -1,12 +1,5 @@
 #pragma once
-//template <typename tKey, typename tMValue>
-//struct SValueType
-//{
-//	tKey smKey;
-//	tMValue smMappedValue;
-//};
-//template <typename tKey, typename tMValue>
-//typedef void(*fpComparrisonFunction)(tKey, tKey);
+#include <iostream>
 
 template <typename tKey, typename tMValue> class CMyMap
 {
@@ -47,6 +40,9 @@ public:
 
 	//removes and deletes all the elements in the current map
 	void Clear();
+
+	//Print contents of the map
+	void PrintMap();
 };
 
 // - Constructor - //
@@ -114,12 +110,18 @@ inline bool CMyMap<tKey, tMValue>::Insert(SValueType * newElement)
 		else
 		{
 			*(temp + i) = *newElement;
-			i++;
-			*(temp + i) = *(mpFirst + i);
+			if (i != mSize)
+			{
+				i++;
+				*(temp + i) = *(mpFirst + i);
+			}
+			
 		}
 	}
-
-	return false;//todo
+	Clear();
+	mSize++;	
+	mpFirst = temp;
+	return true;//todo
 }
 
 template<class tKey, class tMValue>
@@ -136,7 +138,7 @@ inline bool CMyMap<tKey, tMValue>::Emplace(tKey Key, tMValue mapedValue)
 	else
 	{
 		delete temp;
-		return false;//todo
+		return false;
 	}
 }
 
@@ -149,5 +151,22 @@ inline bool CMyMap<tKey, tMValue>::Erase(tKey Key)
 template<class tKey, class tMValue>
 inline void CMyMap<tKey, tMValue>::Clear()
 {
+	for (int i = 0; i < mSize; i++)
+	{
+		if (mpFirst)
+		{
+			delete (mpFirst+i);
+		}
+	}
+	mpFirst = nullptr;
 	//todo
+}
+
+template<typename tKey, typename tMValue>
+inline void CMyMap<tKey, tMValue>::PrintMap()
+{
+	for (int i = 0; i < mSize; i++)
+	{
+		std::cout << (mpFirst+i)->smKey<<std::endl;
+	}
 }
