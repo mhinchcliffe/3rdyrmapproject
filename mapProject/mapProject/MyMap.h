@@ -1,14 +1,23 @@
 #pragma once
+//template <typename tKey, typename tMValue>
+//struct SValueType
+//{
+//	tKey smKey;
+//	tMValue smMappedValue;
+//};
+//template <typename tKey, typename tMValue>
+//typedef void(*fpComparrisonFunction)(tKey, tKey);
+
 template <typename tKey, typename tMValue> class CMyMap
 {
 public:
-	//the the datatype being stored in the map
+	/*the the datatype being stored in the map*/
 	struct SValueType
 	{
 		tKey smKey;
 		tMValue smMappedValue;
 	};
-	typedef void(*fpComparrisonFunction)(tKey, tKey);
+	typedef bool(*fpComparrisonFunction)(tKey, tKey);
 private:
 	SValueType* mpFirst;//pointer to the first element in the map
 	int mSize;//the size of the map
@@ -90,7 +99,7 @@ inline bool CMyMap<tKey, tMValue>::Insert(SValueType * newElement)
 		{
 			return false;
 		}
-		else if (!*fpCompare((mpFirst + i)->smKey), newElement->smKey)
+		else if (!fpCompare((mpFirst + i)->smKey, newElement->smKey))
 		{
 			place++;
 		}
@@ -100,13 +109,13 @@ inline bool CMyMap<tKey, tMValue>::Insert(SValueType * newElement)
 	{
 		if (i != place)
 		{
-			*(temp+i) = &(mpFirst + i);
+			*(temp+i) = *(mpFirst + i);
 		}
 		else
 		{
-			*(temp + i) = &newElement;
+			*(temp + i) = *newElement;
 			i++;
-			*(temp + i) = &(mpFirst + i);
+			*(temp + i) = *(mpFirst + i);
 		}
 	}
 
@@ -116,7 +125,19 @@ inline bool CMyMap<tKey, tMValue>::Insert(SValueType * newElement)
 template<class tKey, class tMValue>
 inline bool CMyMap<tKey, tMValue>::Emplace(tKey Key, tMValue mapedValue)
 {
-	return false;//todo
+	SValueType* temp = new SValueType;
+	temp->smKey = Key;
+	temp->smMappedValue = mapedValue;
+	if (Insert(temp))
+	{
+		delete temp;
+		return true;
+	}
+	else
+	{
+		delete temp;
+		return false;//todo
+	}
 }
 
 template<class tKey, class tMValue>

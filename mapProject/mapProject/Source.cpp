@@ -1,12 +1,14 @@
 #include <iostream>
 #include "MyMap.h"
-void afunction(int i, int j)
+bool afunction(int i, int j)
 {
-	i + i;
+	if (i > j) return true;
+	else return false;
 }
 int main()
 {
 
 	CMyMap<int, int> aMap(&afunction);
+	aMap.Emplace(1, 2);
 	std::system("pause");
 }
