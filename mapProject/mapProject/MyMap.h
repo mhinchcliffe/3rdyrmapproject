@@ -253,7 +253,7 @@ inline bool CMyMap<tKey, tMValue>::EraseByKey(tKey Key)
 template<class tKey, class tMValue>
 inline void CMyMap<tKey, tMValue>::Clear()
 {
-	delete mpFirst;
+	delete[] mpFirst;
 	
 	mpFirst = nullptr;
 	mpLast = nullptr;
