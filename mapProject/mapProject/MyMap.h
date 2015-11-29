@@ -135,21 +135,22 @@ inline tMValue * CMyMap<tKey, tMValue>::GetByKeyValue(tKey key)
 	{
 		if (mpItter->smKey == key)
 		{
-
 			return &mpItter->smMappedValue;
 		}
-		else return nullptr;
 	}
+	throw "Key not found";
 }
 
 template<typename tKey, typename tMValue>
 inline tMValue * CMyMap<tKey, tMValue>::GetByIndexValue(int i)
 {
-	if (i < mSize)
+	if (i >= mSize||i<0)
 	{
-		return &(mpFirst + i)->smMappedValue;
+		throw "provided index is outside of the indexs range";
 	}
-	else return nullptr;
+	return &(mpFirst + i)->smMappedValue;
+
+
 }
 
 // - Interface Functions - //
@@ -161,7 +162,7 @@ inline bool CMyMap<tKey, tMValue>::Insert(SValueType * newElement)
 	{
 		if ((mpFirst + i)->smKey == newElement->smKey)
 		{
-			return false;
+			throw "Key already exists in map";
 		}
 		else if (!fpCompare((mpFirst + i)->smKey, newElement->smKey))
 		{
@@ -189,7 +190,7 @@ inline bool CMyMap<tKey, tMValue>::Insert(SValueType * newElement)
 	mSize++;	
 	mpFirst = temp;
 	mpLast = temp + (mSize - 1);
-	return true;//todo
+	return true;
 }
 
 template<class tKey, class tMValue>
@@ -260,6 +261,7 @@ inline void CMyMap<tKey, tMValue>::Clear()
 	
 	mpFirst = nullptr;
 	mpLast = nullptr;
+	mpItter = nullptr;
 }
 
 template<typename tKey, typename tMValue>
