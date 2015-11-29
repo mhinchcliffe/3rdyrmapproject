@@ -131,11 +131,11 @@ int CMyMap<tKey, tMValue>::GetSize()
 template<typename tKey, typename tMValue>
 inline tMValue * CMyMap<tKey, tMValue>::GetByKeyValue(tKey key)
 {
-	for (mpItter = mpFirst; mpItter != mpLast; mpItter++)
+	for (int i = 0; i < mSize;i++)
 	{
-		if (mpItter->smKey == key)
+		if ((mpFirst+i)->smKey == key)
 		{
-			return &mpItter->smMappedValue;
+			return &(mpFirst + i)->smMappedValue;
 		}
 	}
 	throw "Key not found";
@@ -149,8 +149,6 @@ inline tMValue * CMyMap<tKey, tMValue>::GetByIndexValue(int i)
 		throw "provided index is outside of the indexs range";
 	}
 	return &(mpFirst + i)->smMappedValue;
-
-
 }
 
 // - Interface Functions - //
@@ -174,7 +172,14 @@ inline bool CMyMap<tKey, tMValue>::Insert(SValueType * newElement)
 	{
 		if (i != placeOfInsert)
 		{
-			*(temp+i) = *(mpFirst + i);
+			if (i != mSize)
+			{
+				*(temp + i) = *(mpFirst + i);
+			}
+			else
+			{
+				*(temp + i) = *mpLast;
+			}
 		}
 		else
 		{
@@ -186,10 +191,11 @@ inline bool CMyMap<tKey, tMValue>::Insert(SValueType * newElement)
 			}		
 		}
 	}
+	int newsize = mSize + 1;
 	Clear();
-	mSize++;	
+	mSize=newsize;	
 	mpFirst = temp;
-	mpLast = temp + (mSize - 1);
+	mpLast = temp + (mSize-1);
 	return true;
 }
 
@@ -243,8 +249,9 @@ inline bool CMyMap<tKey, tMValue>::EraseByKey(tKey Key)
 				mpItter++;
 			}
 		}
+		int newSize = mSize - 1;
 		Clear();
-		mSize--;
+		mSize=newSize;
 		mpFirst = temp;
 		mpLast = (temp + mSize - 1);
 	}
@@ -258,7 +265,7 @@ inline void CMyMap<tKey, tMValue>::Clear()
 	{
 		delete[] mpFirst;
 	}
-	
+	mSize = 0;
 	mpFirst = nullptr;
 	mpLast = nullptr;
 	mpItter = nullptr;
@@ -269,7 +276,7 @@ inline void CMyMap<tKey, tMValue>::PrintMap()
 {
 	for (mpItter = mpFirst; mpItter <= mpLast; mpItter++)
 	{
-		std::cout << mpItter->smMappedValue <<std::endl;
+		std::cout <<"key:  "<<mpItter->smKey<<", value: "<<mpItter->smMappedValue <<std::endl;
 	}
 }
 
@@ -294,7 +301,14 @@ inline void CMyMap<tKey, tMValue>::InsertOrAssign(SValueType * newElement)
 	{
 		if (i != placeOfInsert)
 		{
-			*(temp + i) = *(mpFirst + i);
+			if (i != mSize)
+			{
+				*(temp + i) = *(mpFirst + i);
+			}
+			else
+			{
+				*(temp + i) = *mpLast;
+			}
 		}
 		else
 		{
@@ -306,8 +320,9 @@ inline void CMyMap<tKey, tMValue>::InsertOrAssign(SValueType * newElement)
 			}
 		}
 	}
+	int newsize = mSize + 1;
 	Clear();
-	mSize++;
+	mSize= newsize;
 	mpFirst = temp;
 	mpLast = temp + (mSize - 1);
 }
