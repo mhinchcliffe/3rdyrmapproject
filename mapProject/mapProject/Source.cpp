@@ -225,11 +225,11 @@ int main()
 	//test 14
 	std::cout << "///////////\n";
 	std::cout << "testing creation of a map with keytype being a user created struct" << std::endl;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		TestStruct temp;
 		temp.a = (5 * i);
-		temp.b = i+5;
+		temp.b = i+10;
 		TestStructKeyMap.Emplace(temp,i);
 		TestStructKeyMap.PrintMap();
 		std::cout << "/////////" << std::endl;
