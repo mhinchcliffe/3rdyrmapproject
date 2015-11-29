@@ -13,7 +13,7 @@ public:
 
 	//Comparison function
 	typedef bool(*fpComparrisonFunction)(tKey, tKey);
-
+	fpComparrisonFunction fpCompare;//function to compare two keytypes. returns true if first value is higher, false otherwise
 private:
 	// - Iterrators - //
 	SValueType* mpFirst;//pointer to the first element in the map
@@ -22,7 +22,7 @@ private:
 
 	// - other values - //
 	int mSize;//the size of the map
-	fpComparrisonFunction fpCompare;//function to compare two keytypes. returns true if first value is higher, false otherwise
+	
 public:
 	CMyMap(fpComparrisonFunction compFunc);
 	~CMyMap();
@@ -57,7 +57,17 @@ public:
 		return GetByIndexValue(index);
 	}
 
-	
+	void operator=(const CMyMap &aMap)
+	{
+		Clear();
+		mSize = aMap.mSize;
+		mpFirst = new SValueType[mSize];
+		mpLast = mpFirst + mSize - 1;
+		for (int i = 0; i < mSize; i++)
+		{
+			*(mpFirst + i) = *(aMap.mpFirst + i);
+		}
+	}
 
 	// - Interface Functions - //
 	//inserts a new element into the map, 

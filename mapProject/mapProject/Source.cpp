@@ -34,11 +34,11 @@ int main()
 	std::cout << *aMap.GetByIndexValue(0)<<std::endl;
 	std::cout << *aMap[0] << std::endl;
 
-	//std::cout << "test overloaded = operator" << std::endl;
+	std::cout << "test overloaded = operator" << std::endl;
 
-	//CMyMap<int, char> newMap(&afunction);
-	//newMap = aMap;
-	//aMap.Clear();
-	//newMap.PrintMap();
+	CMyMap<int, char> newMap(&afunction);
+	newMap = aMap;
+	aMap.Clear();
+	newMap.PrintMap();
 	std::system("pause");
 }
