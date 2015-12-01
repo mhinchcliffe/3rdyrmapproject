@@ -1,0 +1,13 @@
+1       IsEmpty              N/A       true             true             pass
+2       GetSize              N/A       0                0                pass
+3       GetByKeyValue        1         a                a                pass
+4       GetByIndexValue      0         a                a                pass
+5       EmplaceOrAssign      1,z       z                z                pass
+6       IsEmpty              N/A       false            false            pass
+7       GetSize              N/A       10               10               pass
+8       Begin                N/A       key value of 1   key value of 1   pass
+9       End                  N/A       key value of 10  key value of 10  pass
+10      []                   0         z                z                pass
+11      EraseByKey           1         index 0 to be 'b'index 0 is 'b'   pass
+12      Clear                N/A       empty map        empty map        pass
+13      = operator           N/A       map values equal map values equal pass

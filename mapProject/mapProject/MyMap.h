@@ -146,7 +146,7 @@ inline tMValue * CMyMap<tKey, tMValue>::GetByIndexValue(int i)
 {
 	if (i >= mSize||i<0)
 	{
-		throw "provided index is outside of the indexs range";
+		throw "provided index is outside of the maps range";
 	}
 	return &(mpFirst + i)->smMappedValue;
 }
