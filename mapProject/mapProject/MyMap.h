@@ -103,6 +103,9 @@ CMyMap<tKey, tMValue>::CMyMap(fpComparrisonFunction compFunc)
 {
 	mSize = 0;
 	fpCompare = compFunc;
+	mpItter = nullptr;
+	mpFirst = nullptr;
+	mpLast = nullptr;
 }
 
 // - Destructor - //
