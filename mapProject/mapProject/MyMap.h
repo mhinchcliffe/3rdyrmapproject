@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
-
+//Map project
+//semester 1
+//c03402-object oriented methods in computind
+//g20537816
 template <typename tKey, typename tMValue> class CMyMap
 {
 public:
